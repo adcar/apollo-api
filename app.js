@@ -50,4 +50,4 @@ YD.on('progress', function(progress) {
 	console.log(JSON.stringify(progress))
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(port, () => console.log(`Apollo API listening on port ${port} <3`))
