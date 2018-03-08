@@ -50,4 +50,5 @@ YD.on('progress', function(progress) {
 	console.log(JSON.stringify(progress))
 })
 
+let port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Apollo API listening on port ${port} <3`))
