@@ -1,11 +1,11 @@
 {
-  "name": "apolloapi",
+  "name": "Apollo API",
   "version": "1.0.0",
-  "main": "server.js",
-  "license": "MIT",
+  "main": "app.js",
+  "license": "GPL-3.0",
   "dependencies": {
     "express": "^4.16.2",
-    "youtube-mp3-downloader": "^0.5.3",
+    "youtube-api-v3-search": "^1.0.2",
     "ytdl-core": "^0.20.2"
   }
 }
