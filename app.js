@@ -16,15 +16,30 @@ app.use(function(req, res, next) {
 app.get('/:track/:artist', (req, res) => {
 	youtubeSearch('AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y', {
 		q: `${req.params.track} by ${req.params.artist} audio`
-	}).then(results => {
-		let videoId = results.items[0].id.videoId
-		ytdl.getInfo(`https://www.youtube.com/watch?v=${videoId}`, (err, info) => {
-			res.redirect(
-				info.formats.find(item => item.type === 'audio/webm; codecs="vorbis"')
-					.url
+	})
+		.then(results => {
+			let videoId = results.items[0].id.videoId
+			ytdl.getInfo(
+				`https://www.youtube.com/watch?v=${videoId}`,
+				(err, info) => {
+					if (
+						info.formats.find(
+							item => item.type === 'audio/webm; codecs="vorbis"'
+						)
+					) {
+						res.redirect(
+							info.formats.find(
+								item => item.type === 'audio/webm; codecs="vorbis"'
+							).url
+						)
+					} else {
+						console.log(`Youtube getInfo failed: ${err}`)
+						res.send('Song not found')
+					}
+				}
 			)
 		})
-	})
+		.catch(err => console.log(`Youtube search failed: ${err}`))
 })
 
 app.get('/', (req, res) => {
