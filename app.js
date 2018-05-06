@@ -27,7 +27,7 @@ app.get('/:track/:artist', (req, res) => {
 							item => item.type === 'audio/webm; codecs="vorbis"'
 						)
 					) {
-						res.text(
+						res.send(
 							info.formats.find(
 								item => item.type === 'audio/webm; codecs="vorbis"'
 							).url
@@ -43,7 +43,7 @@ app.get('/:track/:artist', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-	res.send('Welcome to the Apollo API <3')
+	res.send('Welcome to the Euterpe API <3')
 })
 
 let port = process.env.PORT || 3000
