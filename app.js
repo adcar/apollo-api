@@ -27,7 +27,7 @@ app.get('/:track/:artist', (req, res) => {
 							item => item.type === 'audio/webm; codecs="vorbis"'
 						)
 					) {
-						res.redirect(
+						res.text(
 							info.formats.find(
 								item => item.type === 'audio/webm; codecs="vorbis"'
 							).url
