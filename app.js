@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 
 app.get('/:track/:artist', (req, res) => {
 	youtubeSearch('AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y', {
-		q: `${req.params.track} by ${req.params.artist} audio`
+		q: `${req.params.track} ${req.params.artist} audio`
 	})
 		.then(results => {
 			let videoId = results.items[0].id.videoId
@@ -47,4 +47,4 @@ app.get('/', (req, res) => {
 })
 
 let port = process.env.PORT || 3000
-app.listen(port, () => console.log(`Apollo API listening on port ${port} <3`))
+app.listen(port, () => console.log(`Euterpe API listening on port ${port} <3`))

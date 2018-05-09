@@ -1,14 +1,14 @@
 {
-  "name": "apollo-api",
-  "version": "1.0.0",
-  "main": "app.js",
-  "license": "GPL-3.0",
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "^4.16.2",
-    "youtube-api-v3-search": "^1.0.2",
-    "ytdl-core": "^0.20.2"
-  }
+	"name": "apollo-api",
+	"version": "1.0.0",
+	"main": "app.js",
+	"license": "GPL-3.0",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"express": "^4.16.2",
+		"youtube-api-v3-search": "^1.0.2",
+		"ytdl-core": "^0.20.2"
+	}
 }
