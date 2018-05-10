@@ -15,7 +15,10 @@ app.use(function(req, res, next) {
 
 app.get('/:track/:artist', (req, res) => {
 	youtubeSearch('AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y', {
-		q: `${req.params.track} ${req.params.artist} audio`
+		q: `${req.params.track.replace(
+			/[^\w\s]/gi,
+			''
+		)} ${req.params.artist.replace(/[^\w\s]/gi, '')} audio`
 	})
 		.then(results => {
 			let videoId = results.items[0].id.videoId
