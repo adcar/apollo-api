@@ -22,19 +22,16 @@ app.get('/:track/:artist', (req, res) => {
 	})
 		.then(results => {
 			let videoId = results.items[0].id.videoId
+
 			ytdl.getInfo(
 				`https://www.youtube.com/watch?v=${videoId}`,
 				(err, info) => {
-					if (
-						info.formats.find(
-							item => item.type === 'audio/webm; codecs="vorbis"'
-						)
-					) {
-						res.send(
-							info.formats.find(
-								item => item.type === 'audio/webm; codecs="vorbis"'
-							).url
-						)
+					let format = info.formats.find(item =>
+						item.type.includes('codecs="avc1')
+					)
+					console.log(info)
+					if (format) {
+						res.send(format.url)
 					} else {
 						console.log(`Youtube getInfo failed: ${err}`)
 						res.send('Song not found')
