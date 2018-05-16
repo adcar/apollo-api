@@ -13,6 +13,49 @@ app.use(function(req, res, next) {
 	next()
 })
 
+app.get('/:track/:artist/:duration', (req, res) => {
+	youtubeSearch('AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y', {
+		q: `${req.params.track.replace(
+			/[^\w\s]/gi,
+			''
+		)} ${req.params.artist.replace(/[^\w\s]/gi, '')} audio`
+	})
+		.then(results => {
+			const setUrl = url => {
+				console.log(url)
+				res.send(url)
+			}
+			let videoUrl
+			for (item of results.items) {
+				let videoId = item.id.videoId
+				ytdl.getInfo(
+					`https://www.youtube.com/watch?v=${videoId}`,
+					(err, info) => {
+						let format = info.formats.find(item =>
+							item.type.includes('codecs="avc1')
+						)
+						if (
+							format &&
+							parseInt(info.length_seconds) >=
+								parseInt(req.params.duration) - 30 &&
+							parseInt(info.length_seconds) <=
+								parseInt(req.params.duration) + 30
+						) {
+							//res.send(format.url)
+							if (!videoUrl) {
+								setUrl(format.url)
+							}
+							videoUrl = format.url
+						}
+					}
+				)
+			}
+		})
+		.catch(err => console.log(`Youtube search failed: ${err}`))
+})
+
+// Backwards compat
+
 app.get('/:track/:artist', (req, res) => {
 	youtubeSearch('AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y', {
 		q: `${req.params.track.replace(

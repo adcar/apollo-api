@@ -10,6 +10,7 @@
 	"dependencies": {
 		"express": "^4.16.2",
 		"youtube-api-v3-search": "^1.0.2",
+		"youtube-search": "^1.1.0",
 		"ytdl-core": "^0.20.2"
 	},
 	"devDependencies": {
