@@ -31,7 +31,7 @@ app.get('/:track/:artist/:duration', (req, res) => {
 					`https://www.youtube.com/watch?v=${videoId}`,
 					(err, info) => {
 						let format = info.formats.find(item =>
-							item.type.includes('codecs="avc1')
+							item.type.includes('audio')
 						)
 						if (
 							format &&
