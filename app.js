@@ -71,7 +71,7 @@ app.get('/:track/:artist', (req, res) => {
 					console.log('ok')
 					console.log(info)
 					let format = info.formats.find(item =>
-						item.type.includes('audio/webm')
+						item.type.includes('audio')
 					)
 					if (format) {
 						res.send(format.url)
