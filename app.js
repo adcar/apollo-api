@@ -22,7 +22,6 @@ app.get('/:track/:artist/:duration', (req, res) => {
 	})
 		.then(results => {
 			const setUrl = url => {
-				console.log(url)
 				res.send(url)
 			}
 			let videoUrl
@@ -69,10 +68,11 @@ app.get('/:track/:artist', (req, res) => {
 			ytdl.getInfo(
 				`https://www.youtube.com/watch?v=${videoId}`,
 				(err, info) => {
-					let format = info.formats.find(item =>
-						item.type.includes('codecs="avc1')
-					)
+					console.log('ok')
 					console.log(info)
+					let format = info.formats.find(item =>
+						item.type.includes('audio/webm')
+					)
 					if (format) {
 						res.send(format.url)
 					} else {
