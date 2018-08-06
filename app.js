@@ -2,6 +2,7 @@ const ytdl = require("ytdl-core");
 const express = require("express");
 const app = express();
 const youtubeSearch = require("youtube-api-v3-search");
+const pirate = require("thepiratebay");
 
 // CORS
 app.use(function(req, res, next) {
@@ -13,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/:track/:artist/:duration/:filter", (req, res) => {
+app.get("/s/:track/:artist/:duration/:filter", (req, res) => {
   // Filter can be anything you want appended to YT search query, but is designed to be either "clean" or "explicit"
   youtubeSearch("AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y", {
     q: `${req.params.track.replace(
@@ -55,6 +56,41 @@ app.get("/:track/:artist/:duration/:filter", (req, res) => {
       }
     })
     .catch(err => console.log(`Youtube search failed: ${err}`));
+});
+
+// The code for these two is identical however this will likely change in future (therefore I kept them seperate)
+app.get("/dl/track/:track/:artist", (req, res) => {
+  // Spit out magnet link for track
+  (async () => {
+    try {
+      results = await pirate.search(
+        `${req.params.track} ${req.params.artist}`,
+        {
+          category: 101,
+          orderBy: "seeds"
+        }
+      );
+      res.send(results[0].magnetLink);
+    } catch (err) {
+      console.log(`Error: ${err}`);
+      res.send("ERROR");
+    }
+  })();
+});
+app.get("/dl/album/:name/:artist", (req, res) => {
+  // Spit out magnet link for album
+  (async () => {
+    try {
+      results = await pirate.search(`${req.params.name} ${req.params.artist}`, {
+        category: 101,
+        orderBy: "seeds"
+      });
+      res.send(results[0].magnetLink);
+    } catch (err) {
+      console.log(`Error: ${err}`);
+      res.send("ERROR");
+    }
+  })();
 });
 
 app.get("/", (req, res) => {
