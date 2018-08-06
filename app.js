@@ -31,15 +31,11 @@ app.get("/:track/:artist/:duration/:filter", (req, res) => {
         ytdl.getInfo(
           `https://www.youtube.com/watch?v=${videoId}`,
           (err, info) => {
-            if (info) {
-              let format = info.formats.find(item => {
-                if (item.type) {
-                  return item.type.includes("audio");
-                }
-              });
-            } else {
-              format = false;
-            }
+            let format = info.formats.find(item => {
+              if (item.type) {
+                return item.type.includes("audio");
+              }
+            });
 
             if (
               format &&
