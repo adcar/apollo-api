@@ -37,6 +37,8 @@ app.get("/:track/:artist/:duration/:filter", (req, res) => {
                   return item.type.includes("audio");
                 }
               });
+            } else {
+              format = false;
             }
 
             if (
