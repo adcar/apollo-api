@@ -19,9 +19,7 @@ app.get("/:track/:artist/:duration/:filter", (req, res) => {
     q: `${req.params.track.replace(
       /[^\w\s]/gi,
       ""
-    )} ${req.params.artist.replace(/[^\w\s]/gi, "")} audio "${
-      req.params.filter
-    }"`
+    )} ${req.params.artist.replace(/[^\w\s]/gi, "")} audio ${req.params.filter}`
   })
     .then(results => {
       const setUrl = url => {
