@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 
 app.get("/s/:track/:artist/:duration/:explicit", (req, res) => {
   // TODO: convert string to bool
-  const filter = "";
+  let filter = "";
   if (req.params.explicit === "true") {
     filter = "explicit";
   }
