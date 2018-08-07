@@ -14,13 +14,18 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/s/:track/:artist/:duration/:filter?", (req, res) => {
-  // Filter can be anything you want appended to YT search query, but is designed to be either "clean" or "explicit"
+app.get("/s/:track/:artist/:duration/:explicit", (req, res) => {
+  // TODO: convert string to bool
+  if (req.params.explicit === "true") {
+    const filter = "explicit";
+  } else {
+    const filter = "";
+  }
   youtubeSearch("AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y", {
     q: `${req.params.track.replace(
       /[^\w\s]/gi,
       ""
-    )} ${req.params.artist.replace(/[^\w\s]/gi, "")} audio ${req.params.filter}`
+    )} ${req.params.artist.replace(/[^\w\s]/gi, "")} audio ${filter}`
   })
     .then(results => {
       const setUrl = url => {
