@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/s/:track/:artist/:duration/:filter", (req, res) => {
+app.get("/s/:track/:artist/:duration/:filter?", (req, res) => {
   // Filter can be anything you want appended to YT search query, but is designed to be either "clean" or "explicit"
   youtubeSearch("AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y", {
     q: `${req.params.track.replace(
