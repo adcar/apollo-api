@@ -16,10 +16,9 @@ app.use(function(req, res, next) {
 
 app.get("/s/:track/:artist/:duration/:explicit", (req, res) => {
   // TODO: convert string to bool
+  const filter = "";
   if (req.params.explicit === "true") {
-    const filter = "explicit";
-  } else {
-    const filter = "";
+    filter = "explicit";
   }
   youtubeSearch("AIzaSyD_uZJQ7E74CoN5D48t8mldAKGUPx9XQ9Y", {
     q: `${req.params.track.replace(
