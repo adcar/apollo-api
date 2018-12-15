@@ -36,11 +36,17 @@ app.get("/s/:track/:artist/:duration/:explicit", (req, res) => {
         ytdl.getInfo(
           `https://www.youtube.com/watch?v=${videoId}`,
           (err, info) => {
-            let format = info.formats.find(item => {
-              if (item.type) {
-                return item.type.includes("audio");
-              }
-            });
+            if (info) {
+              let format = info.formats.find(item => {
+                if (item.type) {
+                  return item.type.includes("audio");
+                }
+              });
+            } else {
+              res.json({
+                error: `Info could not be found on ${videoId}`
+              });
+            }
 
             if (
               format &&
