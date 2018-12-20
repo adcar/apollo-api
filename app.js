@@ -42,24 +42,23 @@ app.get("/s/:track/:artist/:duration/:explicit", (req, res) => {
                   return item.type.includes("audio");
                 }
               });
+              if (
+                format &&
+                parseInt(info.length_seconds) >=
+                  parseInt(req.params.duration) - 30 &&
+                parseInt(info.length_seconds) <=
+                  parseInt(req.params.duration) + 30
+              ) {
+                //res.send(format.url)
+                if (!videoUrl) {
+                  setUrl(format.url);
+                }
+                videoUrl = format.url;
+              }
             } else {
               res.json({
                 error: `Info could not be found on ${videoId}`
               });
-            }
-
-            if (
-              format &&
-              parseInt(info.length_seconds) >=
-                parseInt(req.params.duration) - 30 &&
-              parseInt(info.length_seconds) <=
-                parseInt(req.params.duration) + 30
-            ) {
-              //res.send(format.url)
-              if (!videoUrl) {
-                setUrl(format.url);
-              }
-              videoUrl = format.url;
             }
           }
         );
