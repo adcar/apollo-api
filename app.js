@@ -2,7 +2,6 @@ const ytdl = require("ytdl-core");
 const express = require("express");
 const app = express();
 const youtubeSearch = require("youtube-api-v3-search");
-const pirate = require("thepiratebay");
 
 // CORS
 app.use(function(req, res, next) {
